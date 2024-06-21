@@ -30,10 +30,10 @@ public class ProductService {
 		return repo.findAll(Sort.by(Sort.Direction.ASC,field));
 	}
 
-	public Page<Product> findProductBySize(int offset, int pageSize) {
-		return repo.findAll(PageRequest.of(offset, pageSize));
-			
-	}
+    public Page<Product> findProductBySize(int page, int pageSize) {
+        Pageable pageable = PageRequest.of(page, pageSize);
+        return repo.findAll(pageable);
+    }
 
 	public Page<Product> findPaginationWithSort(int offset, int pageSize, String field) {
 		return repo.findAll(PageRequest.of(offset, pageSize).withSort(Sort.by(field)));
