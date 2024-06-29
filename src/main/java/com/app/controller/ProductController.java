@@ -37,6 +37,13 @@ public class ProductController {
 		List<Product> product = service.findByField(field);
 		return new APIResponse<>(product.size(),product);
 	}
+	@GetMapping("/pagination/{offset}/{pageSize}")
+	public APIResponse<PagedModel<?>> pagination(@PathVariable int offset, @PathVariable int pageSize){
+		Page<Product> product = service.findPagination(offset,pageSize);
+		PagedModel<?> getProduct = pagedResource.toModel(product);
+		return new APIResponse<>(product.getSize(),getProduct);
+	}
+	
 	@GetMapping("/pagination/{page}")
 	public APIResponse<PagedModel<?>> getProduct(@PathVariable int page,
             @RequestParam(value = "pageSize", defaultValue = "30") int pageSize){

@@ -38,6 +38,11 @@ public class ProductService {
 	public Page<Product> findPaginationWithSort(int offset, int pageSize, String field) {
 		return repo.findAll(PageRequest.of(offset, pageSize).withSort(Sort.by(field)));
 	}
+
+	public Page<Product> findPagination(int offset, int pageSize) {
+		Pageable pageable = PageRequest.of(offset, pageSize);
+        return repo.findAll(pageable);
+	}
 	
 /*	@PostConstruct
 	public void initDB() {
